@@ -5,7 +5,7 @@ sudo systemctl status apache2      #To check the status of apache
 sudo systemctl enable apache2      #To enable the apache     
 
 sudo nano /var/www/html/index.html  #to create the index file
-cat > echo "hello, welcome to my learnings" >/var/www/html/index.html #add data to index.html
+echo "Welcome to my ec2 learnings" >/var/www/html/index.html #add data to index.html
 sudo systemctl restart apache2       #To restart the services
 
 #Adjust the firewall (if UFW is active): If you are using UFW (Uncomplicated Firewall), you need to allow HTTP traffic. Apache registers profiles with UFW for this purpose#
