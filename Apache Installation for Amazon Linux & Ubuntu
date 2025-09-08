@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Detect OS
+OS=$(cat /etc/os-release | grep ^ID= | cut -d= -f2 | tr -d '"')
+
+echo "Detected OS: $OS"
+
+if [[ "$OS" == "amzn" || "$OS" == "amazon" ]]; then
+    echo "Installing Apache on Amazon Linux..."
+    sudo yum update -y
+    sudo yum install -y httpd
+    sudo systemctl start httpd
+    sudo systemctl enable httpd
+    echo "<h1>Welcome to Rabinado - Amazon Linux</h1>" | sudo tee /var/www/html/index.html
+
+elif [[ "$OS" == "ubuntu" ]]; then
+    echo "Installing Apache on Ubuntu..."
+    sudo apt update -y
+    sudo apt install -y apache2
+    sudo systemctl start apache2
+    sudo systemctl enable apache2
+    echo "<h1>Welcome to Rabinado - Ubuntu</h1>" | sudo tee /var/www/html/index.html
+
+else
+    echo "Unsupported OS: $OS"
+    exit 1
+fi
+
+echo "Apache installation complete."
