@@ -1,6 +1,6 @@
 #!/bin/bash
 sudo apt update                    #To update the system.
-sudo apt install apache2           #To install apache in system
+sudo apt install apache2 -y          #To install apache in system
 sudo systemctl status apache2      #To check the status of apache
 sudo systemctl enable apache2      #To enable the apache     
 #Adjust the firewall (if UFW is active): If you are using UFW (Uncomplicated Firewall), you need to allow HTTP traffic. Apache registers profiles with UFW for this purpose#
