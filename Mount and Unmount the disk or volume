@@ -1,0 +1,51 @@
+#df -hT			List the attached disks
+#lsblk      Know the details of attached disk information
+#blkid 			used to locate and display attributes of block devices
+
+############Modify or Increase the Existing Disk Size#####################
+
+#sudo resize2fs /dev/sdXN  # Replace sdXN with your partition or LV path
+#sudo growpart /dev/nvme0n1 1	# Replace nvme0n1 with your partition or LV path 1- Represent the Partition number
+
+
+############ Create or Attach the Volume or Disk to EC2 ###################
+
+#fdisk -l 		# list all disk partitions
+
+############To interactively partition a specific disk######################
+#fdisk /dev/nvme1n1		#partition the disk (Replace /dev/nvme1n1 with your disk name)
+m - Help
+n - create new partition
+p - Partition
+	+(1G/1024MB)
+w - save
+
+
+############### Format the Volume #######################
+#sudo mkfs.xfs /dev/xvdf  # Replace /dev/xvdf with your device name
+
+############### Create a Mount Point ####################
+#sudo mkdir /mnt/mydata # Replace /mnt/mydata with your desired mount point
+
+############### Mount the Volume ########################
+#sudo mount /dev/xvdf /mnt/mydata # Replace /dev/xvdf and /mnt/mydata
+
+#df -h (Verify the Mount)
+
+
+######### Permanent Mount system or Configure for Automatic Mounting on Reboot##############
+
+#sudo blkid /dev/xvdf # Get the UUID of the volume
+
+########## Edit /etc/fstab and add a line similar to this ##############
+#UUID=YOUR_VOLUME_UUID /mnt/mydata xfs defaults 0 0 (Replace YOUR_VOLUME_UUID with the partition UUID, /mnt/mydata with the mount directory path, xfs with the type of the volume)
+
+sudo mount -a (execute the command)
+
+################ Unmount the Volume ##############################
+
+Unmounting by Mount Point
+#sudo umount /path/to/mountpoint (Replace /path/to/mountpoint with the actual directory where the disk is mounted (e.g., /mnt/data, /media/usbdisk))
+
+Unmounting by Device Name.
+#sudo umount /dev/sdXN	(Replace /dev/sdXN with the actual device name (e.g., /dev/sdb1, /dev/nvme0n1p1). You can find the device name using commands like lsblk or df -h.)
